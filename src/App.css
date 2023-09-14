@@ -1,0 +1,31 @@
+*{
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+ .main{
+  /* background-image: url(/public/Images/Poster.png); */
+  width: 100%;
+  height: 100vh;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+} 
+.hovered-div:hover {
+  background-color:#BE123C1A;
+  color: red;
+  cursor: pointer;
+  transition: "background-color 0.3s ease";
+}
+
+@media screen and (max-width: 768px) {
+  .nav-div
+  .nav-body
+   .nav-input {
+    display: none; /* Hide the input at or below 768px */
+  }
+  .nav-input-mobile{
+    display: block;
+  }
+}
+
