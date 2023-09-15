@@ -71,12 +71,7 @@ const AsideMain = ({
             </p>
           </div>
 
-          <img
-            src={picture}
-            alt=""
-            className=" pt-4"
-            style={{ }}
-          />
+          <img src={picture} alt="" className=" pt-4" style={{}} />
         </div>
       </div>
     </div>

@@ -4,7 +4,7 @@ import axios from "axios";
 import request from "../Request";
 import { Link } from "react-router-dom";
 import { BsSuitHeart, BsSuitHeartFill } from "react-icons/bs";
-import toast, { Toaster } from 'react-hot-toast';
+import toast, { Toaster } from "react-hot-toast";
 const Featured = () => {
   const containerStyle = {
     backgroundRepeat: "no-repeat",
@@ -20,10 +20,9 @@ const Featured = () => {
   const [showMore, setShowMore] = useState(true);
 
   useEffect(() => {
-
- // Load the favorites from local storage when the component mounts
- const storedFavorites = JSON.parse(localStorage.getItem("favorites")) || [];
- setFavorites(storedFavorites);
+    // Load the favorites from local storage when the component mounts
+    const storedFavorites = JSON.parse(localStorage.getItem("favorites")) || [];
+    setFavorites(storedFavorites);
 
     axios.get(request.requestTopRated).then((response) => {
       const api = response.data.results;
@@ -57,9 +56,11 @@ const Featured = () => {
         (favMovie) => favMovie.id !== movie.id
       );
       setFavorites(updatedFavorites);
+      toast.success("Removed from favorite");
     } else {
       // Add the movie to favorites
       setFavorites([...favorites, movie]);
+      toast.success("Added to favorite");
     }
 
     // Save updated favorites to local storage
@@ -136,6 +137,7 @@ const Featured = () => {
           </div>
         ))}
       </div>
+      <Toaster />
     </div>
   );
 };
