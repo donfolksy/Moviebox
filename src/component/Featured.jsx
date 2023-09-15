@@ -4,7 +4,7 @@ import axios from "axios";
 import request from "../Request";
 import { Link } from "react-router-dom";
 import { BsSuitHeart, BsSuitHeartFill } from "react-icons/bs";
-
+import toast, { Toaster } from 'react-hot-toast';
 const Featured = () => {
   const containerStyle = {
     backgroundRepeat: "no-repeat",
@@ -18,7 +18,13 @@ const Featured = () => {
   const [showMovieLimit, setShowMovieLimit] = useState(10);
   const [visibleMovies, setVisibleMovies] = useState([]);
   const [showMore, setShowMore] = useState(true);
+
   useEffect(() => {
+
+ // Load the favorites from local storage when the component mounts
+ const storedFavorites = JSON.parse(localStorage.getItem("favorites")) || [];
+ setFavorites(storedFavorites);
+
     axios.get(request.requestTopRated).then((response) => {
       const api = response.data.results;
       //   console.log(api);
@@ -55,6 +61,9 @@ const Featured = () => {
       // Add the movie to favorites
       setFavorites([...favorites, movie]);
     }
+
+    // Save updated favorites to local storage
+    localStorage.setItem("favorites", JSON.stringify(favorites));
   };
 
   return (
@@ -71,14 +80,7 @@ const Featured = () => {
           </p>
         )}
       </div>
-      <div
-        className=" row movie-grid  "
-        style={{
-          display: "grid",
-          gridTemplateColumns: "1fr 1fr 1fr 1fr",
-          gap: "5rem",
-        }}
-      >
+      <div className="movie-grid">
         {visibleMovies.map((movie) => (
           <div style={{ position: "relative" }}>
             <Link
@@ -110,15 +112,15 @@ const Featured = () => {
               className="d-flex justify-content-center align-items-center mt-2"
               style={{
                 position: "absolute",
-                top: "0",
-                right:"10",
+                top: "1.5rem",
+                right: "1.5rem",
                 // left:"",
-                bottom:"-10",
+                bottom: "0",
                 zIndex: "100",
                 borderRadius: "50px",
                 backgroundColor: "#F3F4F680",
-                width: "30px",
-                height: "30px",
+                width: "40px",
+                height: "40px",
               }}
               onClick={(e) => {
                 e.stopPropagation();
@@ -126,9 +128,9 @@ const Featured = () => {
               }}
             >
               {favorites.some((favMovie) => favMovie.id === movie.id) ? (
-                <BsSuitHeartFill style={{ color: "red" }} />
+                <BsSuitHeartFill size={25} style={{ color: "red" }} />
               ) : (
-                <BsSuitHeartFill style={{ color: "#D1D5DB" }} />
+                <BsSuitHeartFill size={25} style={{ color: "#D1D5DB" }} />
               )}
             </div>
           </div>

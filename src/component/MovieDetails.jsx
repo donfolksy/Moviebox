@@ -23,7 +23,7 @@ const MovieDetails = () => {
   }
 
   return (
-    <div className="d-flex">
+    <div className="d-flex" style={{position:'relative',width:"100%"}}>
       <Aside />
       <AsideMain
         postalImage={movie.backdrop_path}
